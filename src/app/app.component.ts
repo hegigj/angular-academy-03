@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-academy-03';
+  selectedItems: any[];
+
+  item?: string;
+  amount?: number;
+
+  constructor() {
+    this.selectedItems = [];
+  }
 }
