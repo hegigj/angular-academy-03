@@ -38,4 +38,12 @@ export class AppComponent {
       this.amount = undefined;
     }
   }
+
+  deleteProduct(event: string): void {
+    const itemToDelete: number = this.selectedItems.findIndex(
+      item => item.name === event
+    );
+    if (itemToDelete !== -1)
+      this.selectedItems.splice(itemToDelete, 1);
+  }
 }

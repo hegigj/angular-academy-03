@@ -1,2 +1,7 @@
 <!-- Wilth the doubly curly braces in angular you can display a property (public) that is on the component -->
-<li>{{itemName}} {{amount}}</li>
+<li>
+    {{itemName}} {{amount}} - 
+    <button (click)="onDelete($event)">
+        <span class="fa fa-trash"></span>
+    </button>
+</li>
