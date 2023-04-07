@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Product } from '../app.component';
 
 @Component({
   selector: 'app-item',
@@ -15,13 +16,26 @@ export class ItemComponent implements OnInit {
   amount?: number;
 
   @Output()
+  edit: EventEmitter<Product>;
+
+  @Output()
   delete: EventEmitter<string>;
 
   constructor() {
+    this.edit = new EventEmitter<Product>();
     this.delete = new EventEmitter<string>();
   }
 
   ngOnInit(): void {
+  }
+
+  onEdit(event: MouseEvent): void {
+    if (this.itemName && this.amount) {
+      this.edit.emit({
+        name: this.itemName,
+        amount: this.amount
+      });
+    }
   }
 
   onDelete(event: MouseEvent): void {

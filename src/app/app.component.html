@@ -1,11 +1,11 @@
 <h2>Product cart</h2>
 <!-- <form (submit)="addProduct"> -->
-<form (submit)="addProduct($event)">
+<form (submit)="submitProduct($event)">
   <label for="item">Product</label>
   <input type="text" name="item" id="item" [(ngModel)]="item">
   <label for="amount">Amount</label>
   <input type="number" name="amount" id="amount" [(ngModel)]="amount">
-  <input type="submit" value="Add">
+  <input type="submit" [value]="submitButtonLabel">
 </form>
 <br>
 <!-- you can pass data to child components via attributes -->
@@ -16,6 +16,10 @@
 <ul>
   <ng-container *ngFor="let item of selectedItems">
     <!-- <app-item [name]="item.name" [amount]="item.amount" on-delete="deleteProduct($event)"></app-item> -->
-    <app-item [name]="item.name" [amount]="item.amount" (delete)="deleteProduct($event)"></app-item>
+    <app-item 
+      [name]="item.name" 
+      [amount]="item.amount" 
+      (edit)="loadProduct($event)"
+      (delete)="deleteProduct($event)"></app-item>
   </ng-container>
 </ul>
