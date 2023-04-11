@@ -1,0 +1,28 @@
+<header 
+  class="flex-box background"
+  [class.red]="true"
+  [class.orange]="isOrange"
+  [class.success]="isGreen"
+  [style.border-radius.px]="5"
+
+>
+  <h1 #h1 [ngStyle]="{color: 'white', textDecoration: 'underline'}">Templates</h1>
+  <button class="btn" [ngClass]="{'btn-success': true}" (click)="login()">Login</button>
+</header>
+<main>
+  <div>
+    <h2>Nested</h2>
+  </div>
+  <ng-container *ngIf="isRed; else fallbackRef">
+    <h2>Nested</h2>
+  </ng-container>
+  <ng-template #fallbackRef>
+    <h3>You can't see me!</h3>
+  </ng-template>
+  <app-card>
+    <button class="btn btn-primary">Save</button>
+    <p>Card content..........</p>
+    <button class="btn btn-danger">Favorite</button>
+    <h2>Card title</h2>
+  </app-card>
+</main>

@@ -1,5 +1,30 @@
-.backgroud {
-    .red {
+.flex-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.background {
+    &.red {
         background-color: red;
+    }
+
+    &.orange {
+        background-color: orange;
+    }
+
+    &.success {
+        background-color: lightgreen;
+    }
+}
+
+.btn {
+    border: none;
+    border-radius: 2px;
+    padding: .2rem .6rem;
+
+    &.btn-success {
+        background-color: lightgreen;
+        color: black;
     }
 }

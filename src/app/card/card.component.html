@@ -1,0 +1,13 @@
+<p>card works!</p>
+<div class="card" style="width: 18rem;">
+    <div class="card-title">
+        <ng-content select="h2"></ng-content>
+    </div>
+    <div class="card-body">
+        <ng-content select="p"></ng-content>
+    </div>
+    <div class="card-action">
+        <ng-content select=".btn-danger"></ng-content>
+        <ng-content select=".btn-primary"></ng-content>
+    </div>
+  </div>
