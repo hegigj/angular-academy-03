@@ -16,8 +16,8 @@ export class AppComponent {
   item?: string;
   amount?: number;
 
-  editItem?: string;
-  editAmount?: number;
+  private editItem?: string;
+  private editAmount?: number;
 
   submitButtonLabel: string;
 
@@ -65,7 +65,7 @@ export class AppComponent {
     }
   }
 
-  private editProduct(): void {
+  private editProduct(): void {``
     const itemToReplace: number = this.selectedItems.findIndex(
       item => item.name === this.editItem && item.amount === this.editAmount
     );
