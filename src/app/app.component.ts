@@ -11,6 +11,15 @@ export class AppComponent implements AfterViewInit {
   isOrange: boolean;
   isGreen: boolean;
 
+  courses: { name: string, active: boolean }[] = [
+    { name: 'FE', active: true },
+    { name: 'Angular', active: true },
+    { name: 'React', active: false },
+    { name: 'Java', active: true },
+    { name: 'Python', active: false },
+    { name: 'Spring', active: true }
+  ];
+
   constructor() {
     this.isRed = false;
     this.isOrange = false;

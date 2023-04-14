@@ -10,6 +10,27 @@
   <button class="btn" [ngClass]="{'btn-success': true}" (click)="login()">Login</button>
 </header>
 <main>
+  <ol>
+    <ng-container *ngFor="let course of courses">
+      <ng-container *ngIf="course.active">
+        <!-- <li>{{course.name}}</li> -->
+        <ng-container *ngTemplateOutlet="liRef; context: { $implicit: course.name, active: course.active }"></ng-container>
+      </ng-container>
+      <!-- <li *ngIf="course.active">{{course.name}}</li> -->
+    </ng-container>
+  </ol>
+  <ul>
+    <ng-container *ngFor="let course of courses">
+      <ng-container *ngIf="!course.active">
+        <!-- <li>{{course.name}}</li> -->
+        <ng-container *ngTemplateOutlet="liRef; context: { $implicit: course.name, active: course.active }"></ng-container>
+      </ng-container>
+    </ng-container>
+  </ul>
+  <!-- <ng-template #liRef let-name="$implicit" let-isActive="active"> -->
+  <ng-template #liRef let-name let-isActive="active">
+    <li>{{name}} [{{isActive ? 'ACTIVE' : 'NOT ACTIVE'}}]</li>
+  </ng-template>
   <div>
     <h2 [appBadge]="2" id="x">Nested</h2>
   </div>
