@@ -1,0 +1,16 @@
+<p>{{now | date: 'hh:mm:ss'}}</p>
+<p>{{'sun' | addChar: '🌞'}}</p>
+<p>{{'sun' | addChar: '🌞': '🌝'}}</p>
+<p>{{'time new roman' | titlecase}}</p>
+<p>{{'time new roman' | uppercase}}</p>
+<p>{{'time new roman' | uppercase | lowercase}}</p>
+<p>{{'3.5' | currency: 'GBP'}}</p>
+<p>{{3.5 | currency: 'GBP'}}</p>
+<p>{{2.8234566655444654 | number: '1.0-3'}}</p>
+<p>{{2.8234 | number: '1.0-5'}}</p>
+<p>{{2 | number: '1.2-2'}}</p>
+<ul>
+    <li *ngFor="let item of table | slice: offset: limit">{{item}}</li>
+</ul>
+<button (click)="prev()"><<</button>
+<button (click)="next()">>></button>
