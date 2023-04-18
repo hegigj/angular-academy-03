@@ -18,6 +18,8 @@ export class AppComponent {
   offset: number = 0;
   limit: number = 3;
 
+  obj = { course: 'Angular', active: true };
+
   constructor() {
     this.now = new Date();
 
