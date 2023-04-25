@@ -1,1 +1,9 @@
-<p>crypto-list works!</p>
+<ng-container *ngIf="cryptoList.length > 0; else emptyList">
+    <ng-container *ngFor="let cryptoItem of cryptoList">
+        <app-crypto-item></app-crypto-item>
+        {{cryptoItem | json}}
+    </ng-container>
+</ng-container>
+<ng-template #emptyList>
+    <ng-content select=".empty-message"></ng-content>
+</ng-template>

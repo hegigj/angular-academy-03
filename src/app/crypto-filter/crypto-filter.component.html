@@ -1,1 +1,10 @@
-<p>crypto-filter works!</p>
+<form method="get" action="" (submit)="applyFilter($event)">
+    <label>Value is</label>
+    <input type="radio" name="valueOption" value="LESS" id="valueOptionLess"><label for="valueOptionLess">less</label>
+    <input type="radio" name="valueOption" value="GREATER" id="valueOptionGreater"><label for="valueOptionGreater">greater </label>
+    <label for="value"> than </label>
+    <input type="number" name="value">
+    <br>
+    <input type="reset" value="Reset filters">
+    <input type="submit" value="Apply filters">
+</form>
