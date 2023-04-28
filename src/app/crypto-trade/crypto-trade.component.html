@@ -1,10 +1,10 @@
 <form method="post" action="" (submit)="$event.preventDefault()">
     <label for="crypto">Select Crypto</label>
-    <select name="crypto" id="crypto">
-
+    <select name="crypto" [(ngModel)]="cryptoOption" id="crypto">
+        <option *ngFor="let option of cryptoOptions" [value]="option">{{option}}</option>
     </select>
     <label for="value">Value</label>
-    <input type="number" name="value">
+    <input type="number" name="value" [(ngModel)]="value">
     <br>
     <button type="button" (click)="buy()">Buy</button>
     <button type="button" (click)="sell()">Sell</button>

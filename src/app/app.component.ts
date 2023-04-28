@@ -43,4 +43,8 @@ export class AppComponent {
       }
     ];
   }
+
+  log(e: any): void {
+    console.log(e);
+  }
 }

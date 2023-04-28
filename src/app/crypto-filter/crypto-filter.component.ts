@@ -1,10 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-type ValueOption = 'LESS' | 'GREATER';
+export type ValueOption = 'LESS' | 'GEATER';
 
 export interface CryptoFilter {
-  isLess?: boolean;
-  value?: number;
+  value: number;
+  isLessThan: boolean;
 }
 
 @Component({
@@ -14,22 +14,22 @@ export interface CryptoFilter {
 })
 export class CryptoFilterComponent {
   @Output()
-  onApplyFilter: EventEmitter<CryptoFilter>;
+  onFilter: EventEmitter<CryptoFilter>;
 
   valueOption?: ValueOption;
   value?: number;
 
   constructor() {
-    this.onApplyFilter = new EventEmitter<CryptoFilter>();
+    this.onFilter = new EventEmitter<CryptoFilter>();
   }
 
   applyFilter(event: SubmitEvent): void {
     event.preventDefault();
-    
-    if (this.valueOption && this.value && this.value >= 0) {
-      this.onApplyFilter.emit({
-        isLess: this.valueOption === 'LESS',
-        value: this.value
+
+    if (this.valueOption && this.value && this.value > 0) {
+      this.onFilter.emit({
+        value: this.value,
+        isLessThan: this.valueOption === 'LESS'
       });
     }
   }
