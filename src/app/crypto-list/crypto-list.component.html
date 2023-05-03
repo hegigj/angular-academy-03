@@ -1,9 +1,14 @@
 <ng-container *ngIf="cryptoList.length > 0; else emptyList">
     <ng-container *ngFor="let cryptoItem of cryptoList">
-        <app-crypto-item></app-crypto-item>
-        {{cryptoItem | json}}
+        <app-crypto-item 
+            [name]="cryptoItem.name"
+            [value]="cryptoItem.value"
+         >
+            <!-- <h3 class="field">{{cryptoItem.name}}</h3>
+            <p class="value">{{cryptoItem.value | currency}}</p> -->
+        </app-crypto-item>
     </ng-container>
 </ng-container>
-<ng-template #emptyList>
+<ng-template #emptyList let-isDisplayed>
     <ng-content select=".empty-message"></ng-content>
 </ng-template>

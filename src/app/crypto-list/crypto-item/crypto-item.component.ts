@@ -12,9 +12,23 @@ export class CryptoItemComponent implements OnChanges {
   @Input()
   value?: number;
 
-  constructor() { }
+  trend: string;
+
+  constructor() {
+    this.trend = '';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+    if (changes && changes['value'].currentValue) {
+      const { firstChange, previousValue, currentValue } = changes['value'];
+
+      if (!firstChange) {
+        this.trend = (previousValue > currentValue) 
+          ? 'down' 
+          :  (previousValue < currentValue) 
+            ? 'up' 
+            : '';
+      }
+    }
   }
 }

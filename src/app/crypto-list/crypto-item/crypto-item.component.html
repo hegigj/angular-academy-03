@@ -1,5 +1,11 @@
 <div class="item">
-    <div class="item-name"></div>
-    <div class="item-value"></div>
-    <div class="item-trend"></div>
+    <div class="item-name">
+        {{name}}
+        <!-- <ng-content select=".field"></ng-content> -->
+    </div>
+    <div class="item-value">
+        {{value | currency}}
+        <!-- <ng-content select=".value"></ng-content> -->
+    </div>
+    <div class="item-trend" [ngClass]="trend">^</div>
 </div>

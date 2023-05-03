@@ -1,0 +1,26 @@
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    div {
+        flex: 1 1 auto;
+
+        &.item-trend {
+            visibility: hidden;
+
+            &.up, &.down {
+                visibility: visible;
+            }
+
+            &.up {
+                color: lightgreen;
+            }
+
+            &.down {
+                transform: rotate(180deg);
+                color: lightcoral;
+            }
+        }
+    }
+}

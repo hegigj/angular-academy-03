@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { CryptoAction } from './crypto-trade/crypto-trade.component';
 
 export interface Crypto {
   id: number;
   name: string;
   value: number;
 }
+
+export type TradeAction = 'buy' | 'sell';
 
 @Component({
   selector: 'app-root',
@@ -46,5 +49,22 @@ export class AppComponent {
 
   log(e: any): void {
     console.log(e);
+  }
+
+  onTradeAction(cryptoAction: CryptoAction, tradeAction: TradeAction): void {
+    const { name, value } = cryptoAction;
+    const cryptoIndex: number = this.cryptos
+      .findIndex(crypto => crypto.name === name);
+
+    if (cryptoIndex !== -1) {
+      switch (tradeAction) {
+        case 'buy':
+          this.cryptos[cryptoIndex].value += value;
+          break;
+        case 'sell':
+          this.cryptos[cryptoIndex].value -= value;
+          break;
+      }
+    }
   }
 }

@@ -2,4 +2,8 @@
 <app-crypto-list [cryptoList]="cryptos">
     <div class="empty-message">List is empty</div>
 </app-crypto-list>
-<app-crypto-trade [cryptos]="cryptos"></app-crypto-trade>
+<app-crypto-trade 
+    [cryptos]="cryptos"
+    (onBuy)="onTradeAction($event, 'buy')"
+    (onSell)="onTradeAction($event, 'sell')"
+></app-crypto-trade>

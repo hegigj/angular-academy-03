@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Crypto } from '../app.component';
 
 export type CryptoAction = Omit<Crypto, 'id'>;
@@ -8,7 +8,7 @@ export type CryptoAction = Omit<Crypto, 'id'>;
   templateUrl: './crypto-trade.component.html',
   styleUrls: ['./crypto-trade.component.scss']
 })
-export class CryptoTradeComponent implements OnInit, OnChanges {
+export class CryptoTradeComponent implements OnChanges {
   @Input()
   cryptos?: Crypto[];
 
@@ -29,7 +29,6 @@ export class CryptoTradeComponent implements OnInit, OnChanges {
     this.onSell = new EventEmitter<CryptoAction>();
   }
 
-  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // if (changes['cryptos'].currentValue instanceof Array) {
     if (this.cryptos instanceof Array) {
