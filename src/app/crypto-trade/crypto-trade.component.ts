@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Crypto } from '../app.component';
+import { CryptoService } from '../crypto.service';
 
 export type CryptoAction = Omit<Crypto, 'id'>;
 
@@ -8,44 +9,30 @@ export type CryptoAction = Omit<Crypto, 'id'>;
   templateUrl: './crypto-trade.component.html',
   styleUrls: ['./crypto-trade.component.scss']
 })
-export class CryptoTradeComponent implements OnChanges {
-  @Input()
-  cryptos?: Crypto[];
-
+export class CryptoTradeComponent {
   cryptoOptions: string[];
 
   cryptoOption?: string;
   value?: number;
 
-  @Output()
-  onBuy: EventEmitter<CryptoAction>;
-
-  @Output()
-  onSell: EventEmitter<CryptoAction>;
-
-  constructor() {
-    this.cryptoOptions = [];
-    this.onBuy = new EventEmitter<CryptoAction>();
-    this.onSell = new EventEmitter<CryptoAction>();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['cryptos'].currentValue instanceof Array) {
-    if (this.cryptos instanceof Array) {
-      this.cryptoOptions = this.cryptos.map((crypto) => crypto.name);
-    }
+  constructor(private cryptoService: CryptoService) {
+    this.cryptoOptions = this.cryptoService.cryptos.map((crypto) => crypto.name);
   }
 
   buy(): void {
-    this.onAction(this.onBuy);
+    if (this.cryptoOption && this.value) {
+      this.cryptoService.buyCrypto({
+        name: this.cryptoOption,
+        value: this.value
+      });
+    }
   }
   sell(): void {
-    this.onAction(this.onSell);
-  }
-
-  private onAction(onAction: EventEmitter<CryptoAction>): void {
-    if (this.cryptoOption && this.value && this.value > 0) {
-      onAction.emit({ name: this.cryptoOption, value: this.value });
+    if (this.cryptoOption && this.value) {
+      this.cryptoService.sellCrypto({
+        name: this.cryptoOption,
+        value: this.value
+      });
     }
   }
 }

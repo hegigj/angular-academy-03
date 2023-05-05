@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Crypto } from '../app.component';
+import { Component } from '@angular/core';
+import { CryptoService } from '../crypto.service';
 
 @Component({
   selector: 'app-crypto-list',
@@ -7,10 +7,5 @@ import { Crypto } from '../app.component';
   styleUrls: ['./crypto-list.component.scss']
 })
 export class CryptoListComponent {
-  @Input()
-  cryptoList: Crypto[];
-
-  constructor() {
-    this.cryptoList = [];
-  }
+  constructor(public cryptoService: CryptoService) {}
 }

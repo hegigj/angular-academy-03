@@ -1,5 +1,5 @@
-<ng-container *ngIf="cryptoList.length > 0; else emptyList">
-    <ng-container *ngFor="let cryptoItem of cryptoList">
+<ng-container *ngIf="cryptoService.cryptos.length; else emptyList">
+    <ng-container *ngFor="let cryptoItem of cryptoService.cryptos">
         <app-crypto-item 
             [name]="cryptoItem.name"
             [value]="cryptoItem.value"

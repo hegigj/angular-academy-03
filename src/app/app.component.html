@@ -1,9 +1,5 @@
-<app-crypto-filter (onFilter)="log($event)"></app-crypto-filter>
-<app-crypto-list [cryptoList]="cryptos">
+<app-crypto-filter></app-crypto-filter>
+<app-crypto-list>
     <div class="empty-message">List is empty</div>
 </app-crypto-list>
-<app-crypto-trade 
-    [cryptos]="cryptos"
-    (onBuy)="onTradeAction($event, 'buy')"
-    (onSell)="onTradeAction($event, 'sell')"
-></app-crypto-trade>
+<app-crypto-trade></app-crypto-trade>
