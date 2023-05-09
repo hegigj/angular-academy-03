@@ -14,7 +14,14 @@ export class Observable<VALUE> {
         this.cbs.forEach(cb => cb(this.value));
     }
 
-    subscribe(cb: CB<VALUE>): void {
-        this.cbs.push(cb);
+    // shtoni metodat perkatese per error dhe coplete
+    // ruani cb per error dhe complete
+
+    subscribe(
+        update: CB<VALUE>,
+        error?: CB<VALUE>,
+        complete?: CB<VALUE>
+    ): void {
+        this.cbs.push(update);
     }
 }

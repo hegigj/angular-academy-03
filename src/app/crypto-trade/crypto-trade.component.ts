@@ -7,8 +7,8 @@ export type CryptoAction = Omit<Crypto, 'id'>;
 @Component({
   selector: 'app-crypto-trade',
   templateUrl: './crypto-trade.component.html',
-  styleUrls: ['./crypto-trade.component.scss'],
-  providers: [CryptoService]
+  styleUrls: ['./crypto-trade.component.scss']
+  // providers: [CryptoService]
 })
 export class CryptoTradeComponent {
   cryptoOptions: string[];
