@@ -7,5 +7,8 @@ import { CryptoService } from '../crypto.service';
   styleUrls: ['./crypto-list.component.scss']
 })
 export class CryptoListComponent {
-  constructor(public cryptoService: CryptoService) {}
+  constructor(public cryptoService: CryptoService) {
+    // cryptoService.action.subscribe((a) => console.log(a));
+    cryptoService.action.subscribe(console.log);
+  }
 }

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Crypto } from './app.component';
 import { CryptoAction } from './crypto-trade/crypto-trade.component';
+import { Observable } from './obs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CryptoService {
   cryptos: Crypto[];
+
+  action: Observable<string> = new Observable('none');
 
   constructor() {
     this.cryptos = [
@@ -45,6 +48,8 @@ export class CryptoService {
       cryptoAction,
       (cryptoValue) => cryptoValue + value 
     );
+
+    this.action.update('buy');
   }
 
   sellCrypto(cryptoAction: CryptoAction): void {
@@ -54,6 +59,8 @@ export class CryptoService {
       cryptoAction,
       (cryptoValue) => cryptoValue - value 
     );
+
+    this.action.update('sell');
   }
 
   private cryptoAction(
