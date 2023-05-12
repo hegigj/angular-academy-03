@@ -1,1 +1,5 @@
-<p>list works!</p>
+<!-- <h2>{{name}}</h2> -->
+<h2>{{nameService.name$ | async}}</h2>
+<ul>
+    <li *ngFor="let name of nameService.names$ | async">{{name}}</li>
+</ul>

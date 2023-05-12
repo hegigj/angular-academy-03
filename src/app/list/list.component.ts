@@ -7,8 +7,18 @@ import { NameService } from '../name.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  // name?: string;
 
-  constructor(nameService: NameService) { }
+  constructor(public nameService: NameService) {
+    // nameService.getTitle().subscribe(
+    //   (name) => {
+    //     console.log(name);
+    //     this.name = name;
+    //   },
+    //   (e) => console.error(e),
+    //   () => console.log('complete')
+    // );
+  }
 
   ngOnInit(): void {
   }
