@@ -9,6 +9,6 @@ import { CryptoService } from '../crypto.service';
 export class CryptoListComponent {
   constructor(public cryptoService: CryptoService) {
     // cryptoService.action.subscribe((a) => console.log(a));
-    cryptoService.action.subscribe(console.log);
+    cryptoService.action.subscribe(console.log, (error) => console.error(error));
   }
 }

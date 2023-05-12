@@ -1,4 +1,10 @@
-type CB<V> = (value: V) => void;
+type CBType = 'update' | 'error' | 'complete';
+type CBFunction<V> = (value?: V) => void;
+
+interface CB<T> {
+    type: CBType;
+    cb: CBFunction<T>;
+}
 
 export class Observable<VALUE> {
     private cbs: CB<VALUE>[];
@@ -11,17 +17,48 @@ export class Observable<VALUE> {
 
     update(value: VALUE): void {
         this.value = value;
-        this.cbs.forEach(cb => cb(this.value));
+        this.cbs
+        .filter(cb => cb.type === 'update')
+        .forEach(cb => cb.cb(this.value));
+    }
+
+    error(error: any): void {
+        this.cbs
+        .filter(cb => cb.type === 'error')
+        .forEach(cb => cb.cb(error));
+    }
+
+    complete(): void {
+        this.cbs
+        .filter(cb => cb.type === 'complete')
+        .forEach(cb => cb.cb());
     }
 
     // shtoni metodat perkatese per error dhe coplete
     // ruani cb per error dhe complete
 
     subscribe(
-        update: CB<VALUE>,
-        error?: CB<VALUE>,
-        complete?: CB<VALUE>
+        update: CBFunction<VALUE>,
+        error?: CBFunction<VALUE>,
+        complete?: CBFunction<VALUE>
     ): void {
-        this.cbs.push(update);
+        this.cbs.push({
+            type: 'update',
+            cb: update
+        });
+
+        if (error) {
+            this.cbs.push({
+                type: 'error',
+                cb: update
+            });
+        }
+
+        if (complete) {
+            this.cbs.push({
+                type: 'complete',
+                cb: update
+            });
+        }
     }
 }

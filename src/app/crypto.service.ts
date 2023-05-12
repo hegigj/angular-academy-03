@@ -55,12 +55,15 @@ export class CryptoService {
   sellCrypto(cryptoAction: CryptoAction): void {
     const { value } = cryptoAction;
 
-    this.cryptoAction(
-      cryptoAction,
-      (cryptoValue) => cryptoValue - value 
-    );
-
-    this.action.update('sell');
+    if (value > 0) {
+      this.cryptoAction(
+        cryptoAction,
+        (cryptoValue) => cryptoValue - value 
+      );
+      this.action.update('sell');
+    } else {
+      this.action.error('Value must be positive');
+    }
   }
 
   private cryptoAction(
