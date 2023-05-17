@@ -1,5 +1,17 @@
 <!-- <h2>{{name}}</h2> -->
-<h2>{{nameService.name$ | async}}</h2>
+<!-- <h2>{{nameService.name$ | async}}</h2> -->
+<label for="search">Search</label>
+<input 
+    type="text"
+    name="search"
+    id="search"
+    [ngModel]="search"
+    (ngModelChange)="onSearch($event)"
+>
 <ul>
-    <li *ngFor="let name of nameService.names$ | async">{{name}}</li>
+    <!-- <li *ngFor="let item of list | async">{{item}}</li> -->
+    <li *ngFor="let item of list">{{item}}</li>
 </ul>
+<!-- <ul>
+    <li *ngFor="let name of nameService.names$ | async">{{name}}</li>
+</ul> -->
