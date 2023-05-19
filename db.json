@@ -1,0 +1,11 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Rei",
+            "lastName": "Bode",
+            "age": 22,
+            "active": false 
+        }
+    ]
+}

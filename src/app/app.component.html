@@ -1,0 +1,28 @@
+<h2>Users</h2>
+<form method="get" action="">
+  <label for="search">Search</label>
+  <input 
+    type="search" 
+    name="search" 
+    id="search"
+    [ngModel]="search"
+    (ngModelChange)="onSearch($event)">
+</form>
+<hr>
+<form method="post" action="" (ngSubmit)="onSave($event)" *ngIf="addMode">
+  <label for="firstName">First Name</label>
+  <input type="text" name="firstName" id="firstName" [(ngModel)]="firstName" required>
+  <br>
+  <label for="lastName">Last Name</label>
+  <input type="text" name="lastName" id="lastName" [(ngModel)]="lastName" required>
+  <br>
+  <label for="age">Age</label>
+  <input type="number" name="age" id="age" [(ngModel)]="age" required>
+  <br>
+  <button type="reset">Reset</button>
+  <button type="submit">Save</button>
+</form>
+<ul>
+  <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
+</ul>
+<button type="button" (click)="onAdd()" *ngIf="!addMode">Add</button>
