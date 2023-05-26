@@ -25,4 +25,15 @@ export class UserService {
       { params }
     );
   } 
+
+  createUser(
+    newUser: Omit<UserModel, 'id' | 'active'>
+  ): Observable<UserModel> {
+    const user: Omit<UserModel, 'id'> = {
+      ...newUser,
+      active: false
+    };
+
+    return this.httpClient.post<UserModel>(this.url, user);
+  }
 }
