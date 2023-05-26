@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { UserModel } from './user.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -35,5 +36,15 @@ export class UserService {
     };
 
     return this.httpClient.post<UserModel>(this.url, user);
+  }
+
+  deleteUser(userId: number): Observable<unknown> {
+    return this.httpClient.delete(`${this.url}/${userId}`).pipe(
+      map(() => userId)
+      // catchError(() => {
+      //   alert('User not found!');
+      //   return EMPTY;
+      // })
+    );
   }
 }

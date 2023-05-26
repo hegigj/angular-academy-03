@@ -1,11 +1,46 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "firstName": "Rei",
-            "lastName": "Bode",
-            "age": 22,
-            "active": false 
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Rei",
+      "lastName": "Bode",
+      "age": 22,
+      "active": false
+    },
+    {
+      "firstName": "Xhoni",
+      "lastName": "Shehu",
+      "age": 21,
+      "active": false,
+      "id": 3
+    },
+    {
+      "firstName": "Adelina",
+      "lastName": "Gjonaj",
+      "age": 22,
+      "active": false,
+      "id": 4
+    },
+    {
+      "firstName": "Brisildi",
+      "lastName": "Cepani",
+      "age": 19,
+      "active": false,
+      "id": 5
+    },
+    {
+      "firstName": "Brian",
+      "lastName": "Bunjaj",
+      "age": 24,
+      "active": false,
+      "id": 6
+    },
+    {
+      "firstName": "Anxhela",
+      "lastName": "Jaho",
+      "age": 22,
+      "active": false,
+      "id": 7
+    }
+  ]
 }

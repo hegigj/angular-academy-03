@@ -19,10 +19,12 @@
   <label for="age">Age</label>
   <input type="number" name="age" id="age" [(ngModel)]="age" required>
   <br>
+  <button type="button" (click)="onClose()">Close</button>
   <button type="reset">Reset</button>
   <button type="submit">Save</button>
 </form>
 <ul>
-  <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
+  <li (dblclick)="onDelete({ id: 15, active: true, age: 20, firstName: 'X', lastName: 'Y' })">X</li>
+  <li *ngFor="let user of users" (dblclick)="onDelete(user)">{{user.firstName}} {{user.lastName}}</li>
 </ul>
 <button type="button" (click)="onAdd()" *ngIf="!addMode">Add</button>
