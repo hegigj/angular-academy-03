@@ -5,7 +5,7 @@ const middlewares = jsonServer.defaults()
 
 const isAuthorized = (req) => {
     if (req && req.headers && req.headers.authorization) {
-        return req.headers.authorization = '1234';
+        return req.headers.authorization === '1234';
     }
 
     return false;

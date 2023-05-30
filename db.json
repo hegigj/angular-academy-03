@@ -41,6 +41,13 @@
       "age": 22,
       "active": false,
       "id": 7
+    },
+    {
+      "firstName": "Hegi",
+      "lastName": "Gjoka",
+      "age": 26,
+      "active": false,
+      "id": 8
     }
   ]
 }

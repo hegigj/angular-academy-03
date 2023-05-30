@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpGlobalErrorHandlerInterceptor } from './http-global-error-handler.interceptor';
+import { AuthorizationInterceptor } from './authorization.interceptor';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,11 @@ import { HttpGlobalErrorHandlerInterceptor } from './http-global-error-handler.i
     HttpClientModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpGlobalErrorHandlerInterceptor,
