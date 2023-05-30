@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject, switchMap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { UserModel } from './user.model';
 import { UserService } from './user.service';
 
@@ -8,7 +9,9 @@ import { UserService } from './user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void>;
+  
   search: string;
   search$: Subject<string>;
 
@@ -21,6 +24,8 @@ export class AppComponent implements OnInit {
   users: UserModel[];
 
   constructor(private userService: UserService) {
+    this.destroy$ = new Subject<void>();
+
     this.search = '';
     this.search$ = new Subject<string>();
 
@@ -35,6 +40,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+
+    this.search$
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(500),
+        switchMap(search => {
+          return this.userService.getUsers(search);
+        })
+      )
+      .subscribe(users => this.users = users);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private getUsers(): void {
