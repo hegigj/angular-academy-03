@@ -44,6 +44,10 @@ export class UserService {
     return this.httpClient.post<UserModel>(this.url, user);
   }
 
+  editUser(user: UserModel): Observable<UserModel> {
+    return this.httpClient.put<UserModel>(`${this.url}/${user.id}`, user);
+  }
+
   deleteUser(userId: number): Observable<unknown> {
     // const headers = new HttpHeaders().set('Authorization', '1234');
 

@@ -25,6 +25,6 @@
 </form>
 <ul>
   <li (dblclick)="onDelete({ id: 15, active: true, age: 20, firstName: 'X', lastName: 'Y' })">X</li>
-  <li *ngFor="let user of users" (dblclick)="onDelete(user)">{{user.firstName}} {{user.lastName}}</li>
+  <li *ngFor="let user of users" (click)="onEdit(user)" (dblclick)="onDelete(user)">{{user.firstName}} {{user.lastName}}</li>
 </ul>
 <button type="button" (click)="onAdd()" *ngIf="!addMode">Add</button>

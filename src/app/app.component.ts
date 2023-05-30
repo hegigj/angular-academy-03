@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserModel } from './user.model';
 import { UserService } from './user.service';
 
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   search: string;
   search$: Subject<string>;
 
+  private id?: number;
   firstName: string;
   lastName: string;
   age: number;
@@ -67,7 +68,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.search$.next(this.search);
   }
 
-  onEdit(): void {}
+  onEdit(user: UserModel): void {
+    const { id, firstName, lastName, age } = user;
+
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+
+    this.addMode = true;
+  }
 
   onClose(): void {
     this.addMode = false;
@@ -95,22 +105,50 @@ export class AppComponent implements OnInit, OnDestroy {
   onSave(event: SubmitEvent): void {
     event.preventDefault();
 
-    this.userService
-      .createUser({
+    if (this.id) {
+      this.userService.editUser({
+        id: this.id,
         firstName: this.firstName,
         lastName: this.lastName,
-        age: this.age
+        age: this.age,
+        active: true
       })
-      .pipe(
-        // 3: use switchMap to change observable 
-        // switchMap(() => {
-        //   return this.userService.getUsers(this.search);
-        // })
-      )
-      .subscribe((user) => this.users.push(user)); // 4: optimal solution
-      // .subscribe((users) => this.users = users); 3: with switchMap
-      // .subscribe(this.getUsers.bind(this)); 2.1: method reference with bind
-      // .subscribe(() => this.getUsers); // 2: without refreshing
-      // .subscribe(); // 1: refresh page
+        .pipe(
+          tap((user) => {
+            const editedUserIndex: number = this.users.findIndex(user => user.id === this.id);
+            this.users[editedUserIndex] = user;
+          }),
+          tap(() => {
+            this.id = undefined;
+            this.firstName = '';
+            this.lastName = '';
+            this.age = 0;
+          })
+        )
+        .subscribe();
+    } else {
+      this.userService
+        .createUser({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          age: this.age
+        })
+        .pipe(
+          tap(() => {
+            this.firstName = '';
+            this.lastName = '';
+            this.age = 0;
+          })
+          // 3: use switchMap to change observable 
+          // switchMap(() => {
+          //   return this.userService.getUsers(this.search);
+          // })
+        )
+        .subscribe((user) => this.users.push(user)); // 4: optimal solution
+        // .subscribe((users) => this.users = users); 3: with switchMap
+        // .subscribe(this.getUsers.bind(this)); 2.1: method reference with bind
+        // .subscribe(() => this.getUsers); // 2: without refreshing
+        // .subscribe(); // 1: refresh page
+    }
   }
 }
