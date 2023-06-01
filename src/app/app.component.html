@@ -9,5 +9,5 @@
 <app-form-with-validations></app-form-with-validations>
 <hr>
 <ul>
-    <li>{{}}</li>
+    <li *ngFor="let user of users">{{user | json}}</li>
 </ul>
