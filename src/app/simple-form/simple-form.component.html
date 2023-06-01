@@ -1,1 +1,17 @@
-<p>simple-form works!</p>
+<form (submit)="add($event)">
+    <input type="text" name="firstName" placeholder="First name">
+    <br>
+    <input type="text" name="lastName" placeholder="Last name">
+    <br>
+    <label for="birthDate">Birthdate</label>
+    <input type="date" name="birthDate" id="birthDate">
+    <br>
+    <input type="text" name="idCard" [(ngModel)]="idCard" placeholder="ID" minlength="10" maxlength="10">
+    <br>
+    <label>Gender</label>
+    <br>
+    <input type="radio" name="gender" [(ngModel)]="gender" value="0" id="opt1"><label for="opt1">Male</label>
+    <input type="radio" name="gender" [(ngModel)]="gender" value="1" id="opt2"><label for="opt2">Female</label>
+    <br>
+    <button type="submit">Add</button>
+</form>
