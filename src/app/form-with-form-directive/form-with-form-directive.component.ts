@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-form-with-form-directive',
   templateUrl: './form-with-form-directive.component.html',
   styleUrls: ['./form-with-form-directive.component.scss']
 })
-export class FormWithFormDirectiveComponent implements OnInit {
+export class FormWithFormDirectiveComponent implements AfterViewInit {
+  @ViewChild('userFormRef')
+  userForm!: NgForm;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    console.log(this.userForm);
   }
 
+  add(): void {
+    if (this.userForm && this.userForm.valid) {
+      this.userService.createUser(this.userForm.value)
+        .subscribe(() => this.userForm.reset());
+    }
+  }
 }
