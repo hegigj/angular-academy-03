@@ -1,1 +1,17 @@
-<p>form-with-validations works!</p>
+<form #userFormRef="ngForm" (ngSubmit)="add()">
+    <input type="text" name="firstName" ngModel placeholder="First name" required>
+    <br>
+    <input type="text" name="lastName" ngModel placeholder="Last name" required>
+    <br>
+    <label for="birthDate">Birthdate</label>
+    <input type="date" name="birthDate" ngModel id="birthDate" required>
+    <br>
+    <input type="text" name="idCard" ngModel placeholder="ID" required minlength="10" maxlength="10">
+    <br>
+    <label>Gender</label>
+    <br>
+    <input type="radio" name="gender" ngModel value="0" id="opt1" required><label for="opt1">Male</label>
+    <input type="radio" name="gender" ngModel value="1" id="opt2" required><label for="opt2">Female</label>
+    <br>
+    <button type="submit">Add</button>
+</form>

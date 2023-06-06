@@ -18,7 +18,7 @@ export class FormWithFormDirectiveComponent implements AfterViewInit {
   }
 
   add(): void {
-    if (this.userForm && this.userForm.valid) {
+    if (this.userForm?.valid) {
       this.userService.createUser(this.userForm.value)
         .subscribe(() => this.userForm.reset());
     }

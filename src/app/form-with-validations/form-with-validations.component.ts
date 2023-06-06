@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form-with-validations',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-with-validations.component.scss']
 })
 export class FormWithValidationsComponent implements OnInit {
+  @ViewChild('userForm')
+  userForm!: NgForm;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  add(): void {}
 }
