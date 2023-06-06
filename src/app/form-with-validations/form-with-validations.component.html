@@ -1,14 +1,18 @@
 <form #userFormRef="ngForm" (ngSubmit)="add()">
     <input type="text" name="firstName" ngModel #firstName="ngModel" placeholder="First name" required>
-    <span *ngIf="(firstName.untouched && userFormRef.invalid) || (!firstName.untouched && firstName.invalid)">Field is required!</span>
+    <ng-container *ngTemplateOutlet="requiredErrorRef; context: { $implicit: firstName }"></ng-container>
     <br>
     <input type="text" name="lastName" ngModel #lastName="ngModel" placeholder="Last name" required>
-    <span *ngIf="(lastName.untouched && userFormRef.invalid) || (!lastName.untouched && lastName.errors?.['required'])">Field is required!</span>
+    <ng-container *ngTemplateOutlet="requiredErrorRef; context: { $implicit: lastName }"></ng-container>
     <br>
     <label for="birthDate">Birthdate</label>
     <input type="date" name="birthDate" ngModel id="birthDate" required>
     <br>
-    <input type="text" name="idCard" ngModel placeholder="ID" required minlength="10" maxlength="10">
+    <input type="text" name="idCard" ngModel #idCard="ngModel" placeholder="ID" required minlength="10" maxlength="10">
+    <br>
+    <span *ngIf="!idCard.untouched && idCard.errors?.['required']">ID is required!</span>
+    <br>
+    <span *ngIf="!idCard.untouched && (idCard.errors?.['minlength'] || idCard.errors?.['maxlength'])">ID length not correct, you have inputed {{idCard.errors?.['minlength']?.actualLength}} characters, you need to add exactly {{idCard.errors?.['minlength']?.requiredLength}} characters!</span>
     <br>
     <label>Gender</label>
     <br>
@@ -16,4 +20,8 @@
     <input type="radio" name="gender" ngModel value="1" id="opt2" required><label for="opt2">Female</label>
     <br>
     <button type="submit">Add</button>
+
+    <ng-template #requiredErrorRef let-control>
+        <span *ngIf="(userFormRef.invalid && userFormRef.submitted) || (!control.untouched && control.invalid)">Field is required!</span>
+    </ng-template>
 </form>
