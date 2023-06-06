@@ -1,7 +1,9 @@
 <form #userFormRef="ngForm" (ngSubmit)="add()">
-    <input type="text" name="firstName" ngModel placeholder="First name" required>
+    <input type="text" name="firstName" ngModel #firstName="ngModel" placeholder="First name" required>
+    <span *ngIf="(firstName.untouched && userFormRef.invalid) || (!firstName.untouched && firstName.invalid)">Field is required!</span>
     <br>
-    <input type="text" name="lastName" ngModel placeholder="Last name" required>
+    <input type="text" name="lastName" ngModel #lastName="ngModel" placeholder="Last name" required>
+    <span *ngIf="(lastName.untouched && userFormRef.invalid) || (!lastName.untouched && lastName.errors?.['required'])">Field is required!</span>
     <br>
     <label for="birthDate">Birthdate</label>
     <input type="date" name="birthDate" ngModel id="birthDate" required>
