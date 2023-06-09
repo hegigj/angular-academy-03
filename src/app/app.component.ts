@@ -1,5 +1,17 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+
+export function endOrOngoingRequired(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const fg: FormGroup = control as FormGroup;
+
+    if (fg.get('end')?.value || fg.get('ongoing')?.value) {
+      return null;
+    }
+
+    return { endOrOngoingRequired: true };
+  }
+}
 
 @Component({
   selector: 'app-root',
@@ -27,15 +39,20 @@ export class AppComponent {
       university: new FormControl('', Validators.required),
       degree: new FormControl('', Validators.required),
       start: new FormControl('', Validators.required),
-      end: new FormControl({ value: '', disabled: true }),
-      ongoing: new FormControl({ value: '', disabled: true }),
-    });
+      // end: new FormControl({ value: '', disabled: true }),
+      end: new FormControl(''),
+      ongoing: new FormControl(''),
+    }, endOrOngoingRequired());
   }
 
   addEducation(): void {
     this.getFormArray(this.cvForm.get('education')).push(
       this.educationForm()
     );
+  }
+
+  removeEducation(index: number): void {
+    this.getFormArray(this.cvForm.get('education')).removeAt(index);
   }
 
   getFormArray(control: AbstractControl | null): FormArray {

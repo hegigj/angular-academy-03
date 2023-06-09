@@ -33,7 +33,9 @@
         <br>
         <label for="ongoing">Ongoing</label>
         <input type="checkbox" id="ongoing" formControlName="ongoing" [value]="true">
+        <br>
         <button type="button">Save</button>
+        <button type="button" (click)="removeEducation(i)">Remove</button>
       </div>
     </ng-container>
     <button type="button" (click)="addEducation()">Add Education</button>
