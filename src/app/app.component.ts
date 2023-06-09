@@ -18,16 +18,24 @@ export class AppComponent {
         // birthDate: new FormControl('', [Validators.required, Validators.max('2005-01-01')])
         birthDate: new FormControl('', [Validators.required])  
       }),
-      education: new FormArray([
-        new FormGroup({
-          university: new FormControl('', Validators.required),
-          degree: new FormControl('', Validators.required),
-          start: new FormControl('', Validators.required),
-          end: new FormControl({ value: '', disabled: true }),
-          ongoing: new FormControl({ value: '', disabled: true }),
-        })
-      ])
+      education: new FormArray([ this.educationForm() ])
     });
+  }
+
+  educationForm(): FormGroup {
+    return new FormGroup({
+      university: new FormControl('', Validators.required),
+      degree: new FormControl('', Validators.required),
+      start: new FormControl('', Validators.required),
+      end: new FormControl({ value: '', disabled: true }),
+      ongoing: new FormControl({ value: '', disabled: true }),
+    });
+  }
+
+  addEducation(): void {
+    this.getFormArray(this.cvForm.get('education')).push(
+      this.educationForm()
+    );
   }
 
   getFormArray(control: AbstractControl | null): FormArray {

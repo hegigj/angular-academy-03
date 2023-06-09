@@ -15,10 +15,10 @@
     <input type="date" id="birthDate" formControlName="birthDate">
   </div>
   <hr>
-  <div>
+  <div formArrayName="education">
     <h2>Education</h2>
     <ng-container *ngFor="let _ of getFormArray(cvForm.get('education')).controls;index as i">
-      <div [formArrayName]="i">
+      <div [formGroupName]="i">
         <label for="university">University</label>
         <input type="text" id="university" formControlName="university">
         <br>
@@ -36,7 +36,7 @@
         <button type="button">Save</button>
       </div>
     </ng-container>
-    <button type="button">Add Education</button>
+    <button type="button" (click)="addEducation()">Add Education</button>
   </div>
   <button type="submit">Create</button>
 </form>
