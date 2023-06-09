@@ -4,6 +4,7 @@
     <h2>Personal Data</h2>
     <label for="firstName">First name:</label>
     <input type="text" id="firstName" formControlName="firstName">
+    <span *ngIf="cvForm.get('personalData')?.get('firstName')?.invalid">Field is required!</span>
     <br>
     <label for="lastName">Last name:</label>
     <input type="text" id="lastName" formControlName="lastName">
@@ -40,5 +41,5 @@
     </ng-container>
     <button type="button" (click)="addEducation()">Add Education</button>
   </div>
-  <button type="submit">Create</button>
+  <button type="submit" [disabled]="cvForm.invalid">Create</button>
 </form>
