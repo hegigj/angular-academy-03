@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Observable, Subject, of } from 'rxjs';
+import { distinctUntilChanged, map, takeUntil, tap } from 'rxjs/operators';
+import { EmailService } from './email.service';
 
 export function endOrOngoingRequired(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -15,6 +16,47 @@ export function endOrOngoingRequired(): ValidatorFn {
   }
 }
 
+export function ALIDCARDValidator(birthControlName: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const formGroup = control.parent;
+    const birthDate = formGroup?.get(birthControlName);
+    // 1997-01-16
+
+    if (control.value && birthDate?.value) {
+      const date = new Date(birthDate?.value);
+      const month: number = date.getMonth() + 1;
+      const day: number = date.getDate();
+
+      let idMonth = +control.value.slice(2, 4);
+      const idDay = +control.value.slice(4, 6);
+
+      if (idMonth > 12) idMonth -= 50;
+
+      return (idMonth === month && idDay === day) 
+        ? null 
+        : { idCardMismatch: true };
+    }
+
+    return { idCardMismatch: true };
+  };
+}
+
+export function EmailUsed(service: EmailService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (control.value) {
+      return service.checkIfEmailExists(control.value).pipe(
+        map(emailExists => {
+          return emailExists 
+            ? { emailExists: true } 
+            : null;
+        })
+      );
+    }
+
+    return of(null);
+  };
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,20 +66,25 @@ export class AppComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void>;
   cvForm: FormGroup;
 
-  constructor() {
+  constructor(emailService: EmailService) {
     this.onDestroy$ = new Subject<void>();
 
     this.cvForm = new FormGroup({
       personalData: new FormGroup({
         firstName: new FormControl('', Validators.required),
         lastName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl(
+          '',
+          [Validators.required, Validators.email],
+          EmailUsed(emailService)
+        ),
         // birthDate: new FormControl('', [Validators.required, Validators.max('2005-01-01')])
         birthDate: new FormControl('', [Validators.required]),  
         idCard: new FormControl('', [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(10)
+          Validators.maxLength(10),
+          ALIDCARDValidator('birthDate')
         ])  
       }),
       education: new FormArray([ this.educationForm() ])
