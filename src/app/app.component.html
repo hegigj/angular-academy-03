@@ -14,6 +14,9 @@
     <br>
     <label for="birthDate">Birth date:</label>
     <input type="date" id="birthDate" formControlName="birthDate">
+    <br>
+    <label for="idCard">ID:</label>
+    <input type="text" id="idCard" formControlName="idCard">
   </div>
   <hr>
   <div formArrayName="education">
@@ -33,7 +36,17 @@
         <input type="date" id="end" formControlName="end">
         <br>
         <label for="ongoing">Ongoing</label>
-        <input type="checkbox" id="ongoing" formControlName="ongoing" [value]="true">
+        <!-- <input 
+          type="checkbox" 
+          id="ongoing" 
+          formControlName="ongoing" 
+          [value]="true"
+          (change)="toggleOngoing(i)"> -->
+        <input 
+          type="checkbox" 
+          id="ongoing" 
+          formControlName="ongoing" 
+          [value]="true">
         <br>
         <button type="button">Save</button>
         <button type="button" (click)="removeEducation(i)">Remove</button>
