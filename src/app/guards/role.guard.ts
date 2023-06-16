@@ -1,12 +1,24 @@
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild } from "@angular/router";
+import { UserService } from "../user.service";
+import { Injectable } from "@angular/core";
 
-export class RoleGuard implements CanActivate {
-    constructor() {
+@Injectable({
+    providedIn: 'root'
+})
+export class RoleGuard implements CanActivate, CanActivateChild {
+    constructor(private userService: UserService) {}
 
+    canActivate(route: ActivatedRouteSnapshot): boolean {
+        const { roles } = route.data;
+
+        const authRole: boolean = roles.includes(this.userService.loggedUserRole);
+
+        if (!authRole) alert('You are not authorized to access this route!');
+
+        return authRole;
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
         
     }
 }

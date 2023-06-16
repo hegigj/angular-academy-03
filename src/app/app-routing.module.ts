@@ -5,6 +5,7 @@ import { AboutComponent } from "./about/about.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ProductComponent } from "./home/product/product.component";
 import { ServiceComponent } from "./home/service/service.component";
+import { RoleGuard } from "./guards/role.guard";
 
 const routes: Routes = [
     {
@@ -18,12 +19,19 @@ const routes: Routes = [
         children: [
             {
                 path: 'product',
-                component: ProductComponent
+                component: ProductComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roles: ['ADMIN', 'CRM']
+                }
             },
             {
                 path: 'service',
                 component: ServiceComponent,
-                canActivate: []
+                canActivate: [RoleGuard],
+                data: {
+                    roles: ['ADMIN']
+                }
             },
             {
                 path: '**',
