@@ -16,11 +16,12 @@ const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
+        canActivateChild: [RoleGuard],
         children: [
             {
                 path: 'product',
                 component: ProductComponent,
-                canActivate: [RoleGuard],
+                // canActivate: [RoleGuard],
                 data: {
                     roles: ['ADMIN', 'CRM']
                 }
@@ -28,7 +29,7 @@ const routes: Routes = [
             {
                 path: 'service',
                 component: ServiceComponent,
-                canActivate: [RoleGuard],
+                // canActivate: [RoleGuard],
                 data: {
                     roles: ['ADMIN']
                 }
