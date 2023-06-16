@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+a {
+    text-decoration: none;
+    margin-right: .5rem;
+    color: black;
+
+    &.active {
+        color: blue;
+    }
+}
