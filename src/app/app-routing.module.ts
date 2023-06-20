@@ -48,10 +48,13 @@ const routes: Routes = [
     },
     {
         path: 'posts',
-        component: PostsComponent,
         children: [
             {
-                path: ':POST_ID/image/:IMG_ID/:USER_ID', // /posts/1
+                path: '',
+                component: PostsComponent
+            },
+            {
+                path: ':POST_ID', // /posts/1
                 component: PostComponent
             }
         ]
