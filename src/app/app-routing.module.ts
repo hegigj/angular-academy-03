@@ -51,7 +51,7 @@ const routes: Routes = [
         component: PostsComponent,
         children: [
             {
-                path: ':POST_ID/image/:IMG_ID/:USER_ID', // /posts/1
+                path: ':POST_ID', // /posts/1
                 component: PostComponent
             }
         ]
