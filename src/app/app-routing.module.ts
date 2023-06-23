@@ -48,6 +48,11 @@ const routes: Routes = [
     },
     {
         path: 'posts',
+        // canActivate: [RoleGuard],
+        canLoad: [RoleGuard],
+        data: {
+            roles: ['ADMIN', 'CRM']
+        },
         loadChildren: () => {
             return import('./post/post.module').then(
                 mudule => mudule.PostModule

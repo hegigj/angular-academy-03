@@ -1,11 +1,12 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, UrlTree } from "@angular/router";
 import { Role, UserService } from "../user.service";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
-export class RoleGuard implements CanActivate, CanActivateChild {
+export class RoleGuard implements CanActivate, CanActivateChild, CanLoad {
     constructor(private userService: UserService) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
@@ -15,6 +16,11 @@ export class RoleGuard implements CanActivate, CanActivateChild {
 
     canActivateChild(childRoute: ActivatedRouteSnapshot): boolean {
         const { roles } = childRoute.data;
+        return this.checkRole(roles);
+    }
+
+    canLoad(route: Route): boolean {
+        const { roles } = route.data as any;
         return this.checkRole(roles);
     }
 

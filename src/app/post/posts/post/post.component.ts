@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostService } from '../../post.service';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +11,6 @@ export class PostComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private postService: PostService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -27,11 +25,10 @@ export class PostComponent implements OnInit {
     //     this.title = this.postService.getPost(+postId).title;
     //   }
     // });
-    this.activatedRoute.paramMap.subscribe(paramMap => {
-      if (paramMap.has('POST_ID')) {
-        const postId: string = paramMap.get('POST_ID') as string;
-        this.title = this.postService.getPost(+postId).title;
-      }
+    this.activatedRoute.data.subscribe((data) => {
+      // const post = data.post;
+      const { post } = data as any;
+      this.title = post.title;
     });
   }
 
