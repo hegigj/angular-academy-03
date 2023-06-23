@@ -5,9 +5,7 @@ export interface PostModel {
   title: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PostService {
   private posts: PostModel[];
 

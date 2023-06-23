@@ -6,8 +6,8 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { ProductComponent } from "./home/product/product.component";
 import { ServiceComponent } from "./home/service/service.component";
 import { RoleGuard } from "./guards/role.guard";
-import { PostsComponent } from "./posts/posts.component";
-import { PostComponent } from "./posts/post/post.component";
+import { PostsComponent } from "./post/posts/posts.component";
+import { PostComponent } from "./post/posts/post/post.component";
 
 const routes: Routes = [
     {
@@ -49,6 +49,10 @@ const routes: Routes = [
     {
         path: 'posts',
         component: PostsComponent,
+        canActivate: [RoleGuard],
+        data: {
+            roles: ['ADMIN']
+        },
         children: [
             {
                 path: ':POST_ID', // /posts/1
