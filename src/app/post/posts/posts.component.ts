@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel, PostService } from '../../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostModel, PostService } from '../post.service';
 
 @Component({
   selector: 'app-posts',

@@ -48,17 +48,11 @@ const routes: Routes = [
     },
     {
         path: 'posts',
-        component: PostsComponent,
-        canActivate: [RoleGuard],
-        data: {
-            roles: ['ADMIN']
-        },
-        children: [
-            {
-                path: ':POST_ID', // /posts/1
-                component: PostComponent
-            }
-        ]
+        loadChildren: () => {
+            return import('./post/post.module').then(
+                mudule => mudule.PostModule
+            )
+        }
     },
     {
         path: '**',
